@@ -91,8 +91,10 @@ public class LoginActivity extends AppCompatActivity {
              */
             @Override
             public void onSuccess(LoginResult loginResult) {
-                Log.d("Facebook Id", loginResult.getAccessToken().getToken());
+                Log.d("Facebook Token", loginResult.getAccessToken().getToken());
                 String fbId = loginResult.getAccessToken().getUserId();
+                Log.d("Facebook Id", fbId);
+                showProgress(true);
                 new FacebookLoginTask().execute(fbId);
 
                 /*

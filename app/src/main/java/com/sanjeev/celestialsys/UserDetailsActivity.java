@@ -34,6 +34,13 @@ public class UserDetailsActivity extends AppCompatActivity {
     private View mProgressView;
     private View mUserDetailsFormView;
 
+    private void launchLoginActivity() {
+        LoginManager.getInstance().logOut();
+        Intent intent = new Intent(getBaseContext(), LoginActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         if (mUser.getId() != 0) {
@@ -42,10 +49,7 @@ public class UserDetailsActivity extends AppCompatActivity {
             signOut.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
                 @Override
                 public boolean onMenuItemClick(MenuItem menuItem) {
-                    LoginManager.getInstance().logOut();
-                    Intent intent = new Intent(getBaseContext(), LoginActivity.class);
-                    startActivity(intent);
-                    finish();
+                    launchLoginActivity();
                     return false;
                 }
             });
@@ -175,6 +179,12 @@ public class UserDetailsActivity extends AppCompatActivity {
             mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
             mUserDetailsFormView.setVisibility(show ? View.GONE : View.VISIBLE);
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        launchLoginActivity();
     }
 
     /**
